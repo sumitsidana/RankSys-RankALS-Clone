@@ -48,14 +48,14 @@ public class RankALSExample {
         int k = 20;
         int numIter = 10;
 
-        Factorization<Long, Long> factorization = new RankALSFactorizer<Long, Long>(numIter).factorize(k, trainData);
+        Factorization<Long, Long> factorization = new RankALSFactorizer<Long, Long>(numIter, true).factorize(k, trainData);
 
         Recommender<Long, Long> recommender = new MFRecommender<>(userIndex, itemIndex, factorization);
 
         Set<Long> targetUsers = testData.getUsersWithPreferences().collect(Collectors.toSet());
         RecommendationFormat<Long, Long> format = new SimpleRecommendationFormat<>(lp, lp);
         Function<Long, IntPredicate> filter = FastFilters.notInTrain(trainData);
-        int maxLength = 100;
+        int maxLength = 20;
         RecommenderRunner<Long, Long> runner = new FastFilterRecommenderRunner<>(userIndex, itemIndex, targetUsers, format, filter, maxLength);
 
         System.out.println("Running RankALS");
