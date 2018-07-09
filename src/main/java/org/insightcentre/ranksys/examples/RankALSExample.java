@@ -55,7 +55,7 @@ public class RankALSExample {
         Set<Long> targetUsers = testData.getUsersWithPreferences().collect(Collectors.toSet());
         RecommendationFormat<Long, Long> format = new SimpleRecommendationFormat<>(lp, lp);
         Function<Long, IntPredicate> filter = FastFilters.notInTrain(trainData);
-        int maxLength = 20;
+        int maxLength = 100;
         RecommenderRunner<Long, Long> runner = new FastFilterRecommenderRunner<>(userIndex, itemIndex, targetUsers, format, filter, maxLength);
 
         System.out.println("Running RankALS");
